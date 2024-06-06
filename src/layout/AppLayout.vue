@@ -8,6 +8,10 @@ import { useLayout } from '@/layout/composables/layout';
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout();
 
+const welcome = import.meta.env.VITE_WELCOME_STR;
+
+console.log('welcome str->'+welcome)
+
 const outsideClickListener = ref(null);
 
 watch(isSidebarActive, (newVal) => {

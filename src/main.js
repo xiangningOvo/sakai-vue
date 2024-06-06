@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import { createPinia } from "pinia";
 import App from './App.vue';
 import router from './router';
 
@@ -117,6 +118,7 @@ app.use(PrimeVue, { ripple: true });
 app.use(ToastService);
 app.use(DialogService);
 app.use(ConfirmationService);
+app.use(createPinia())
 
 app.directive('tooltip', Tooltip);
 app.directive('badge', BadgeDirective);
