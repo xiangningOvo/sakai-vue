@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getToken } from "@/utils/auth";
 import cache from "@/utils/cache";
 import errorCode from "@/utils/errorCode";
-
+import toast from "@/utils/toast";
 
 let downloadLoadingInstance;
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
@@ -55,7 +55,6 @@ service.interceptors.request.use(config => {
   }
   return config
 }, error => {
-  console.log(error)
   Promise.reject(error)
 })
 
@@ -73,9 +72,11 @@ service.interceptors.response.use(res => {
       return Promise.reject(new Error('无效的会话，或者会话已过期，请重新登录。'))
     } else if (code === 500) {
       return Promise.reject(new Error(message))
-    }else {
-      return res.data
+    }else if (code === -200){
+      toast.add({severity:'error',summary:'参数错误',detail:message,life:3000,closable:false})
+      return Promise.reject(new Error(message))
     }
+    return res.data
   },
   error => {
     let { message } = error;
@@ -88,6 +89,7 @@ service.interceptors.response.use(res => {
     else if (message.includes("Request failed with status code")) {
       message = "系统接口" + message.substr(message.length - 3) + "异常";
     }
+    toast.add({severity:'error',summary:'系统出错',detail:message,life:3000,closable:false})
     return Promise.reject(error)
   }
 )

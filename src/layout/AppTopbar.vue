@@ -59,13 +59,36 @@ const isOutsideClicked = (event) => {
 
     return !(sidebarEl.isSameNode(event.target) || sidebarEl.contains(event.target) || topbarEl.isSameNode(event.target) || topbarEl.contains(event.target));
 };
+
+const menu = ref();
+const items = ref([
+  {
+    label: '个人中心',
+    icon: 'pi pi-user',
+    command:()=>{
+
+    }
+  },
+  {
+    label: '退出登录',
+    icon: 'pi pi-sign-out',
+    command:()=>{
+
+    }
+  }
+]);
+
+const toggle = (event) => {
+  menu.value.toggle(event);
+};
+
 </script>
 
 <template>
     <div class="layout-topbar">
         <router-link to="/" class="layout-topbar-logo">
             <img :src="logoUrl" alt="logo" />
-            <span>SAKAI</span>
+            <span>管理系统</span>
         </router-link>
 
         <button class="p-link layout-menu-button layout-topbar-button" @click="onMenuToggle()">
@@ -77,18 +100,11 @@ const isOutsideClicked = (event) => {
         </button>
 
         <div class="layout-topbar-menu" :class="topbarMenuClasses">
-            <button @click="onTopBarMenuButton()" class="p-link layout-topbar-button">
-                <i class="pi pi-calendar"></i>
-                <span>Calendar</span>
-            </button>
-            <button @click="onTopBarMenuButton()" class="p-link layout-topbar-button">
+            <button @click="toggle" class="p-link layout-topbar-button">
                 <i class="pi pi-user"></i>
                 <span>Profile</span>
             </button>
-            <button @click="onSettingsClick()" class="p-link layout-topbar-button">
-                <i class="pi pi-cog"></i>
-                <span>Settings</span>
-            </button>
+            <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
         </div>
     </div>
 </template>

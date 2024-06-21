@@ -1,7 +1,7 @@
 <script setup>
 import { FilterMatchMode } from 'primevue/api';
 import { ref, onMounted, onBeforeMount } from 'vue';
-import { ProductService } from '@/service/ProductService';
+import { BookService } from '@/service/BookService';
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
@@ -21,7 +21,7 @@ const statuses = ref([
     { label: 'OUTOFSTOCK', value: 'outofstock' }
 ]);
 
-const productService = new ProductService();
+const productService = new BookService();
 
 const getBadgeSeverity = (inventoryStatus) => {
     switch (inventoryStatus.toLowerCase()) {

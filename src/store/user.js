@@ -8,10 +8,10 @@ export const useUserStore = defineStore({
     token: getToken(),
     username:'',
     password:'',
-    name: '',
-    avatar: '',
-    roles: [],
-    permissions: []
+    name: '',//用户名
+    avatar: '',//头像
+    roles: [],//用户的角色
+    permissions: []//用户权限列表 即可以展示的菜单
   }),
   actions: {
     setUsername(username){
@@ -20,14 +20,23 @@ export const useUserStore = defineStore({
     setPassword(password){
       this.password = password;
     },
+    getRoles(){
+      return this.roles;
+    },
     // 登录
     Login() {
       const username = this.username.trim()
       const password = this.password
       return new Promise((resolve, reject) => {
         login(username, password).then(res => {
-          setToken(res.data)
-          resolve(res)
+          if (res.code === 1){
+            setToken(res.data.token)
+            this.roles = res.data.roles
+            this.password = '';
+            resolve(res)
+          }else {
+            reject(res)
+          }
         }).catch(error => {
           reject(error)
         })

@@ -1,5 +1,5 @@
 <script setup>
-import { ProductService } from '@/service/ProductService';
+import { BookService } from '@/service/BookService';
 import { PhotoService } from '@/service/PhotoService';
 import { ref, onMounted } from 'vue';
 
@@ -41,7 +41,7 @@ const carouselResponsiveOptions = ref([
     }
 ]);
 
-const productService = new ProductService();
+const productService = new BookService();
 const photoService = new PhotoService();
 
 onMounted(() => {

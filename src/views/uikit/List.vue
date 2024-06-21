@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { ProductService } from '@/service/ProductService';
+import { BookService } from '@/service/BookService';
 
 const picklistValue = ref([
     [
@@ -35,7 +35,7 @@ const sortOptions = ref([
     { label: 'Price Low to High', value: 'price' }
 ]);
 
-const productService = new ProductService();
+const productService = new BookService();
 
 onMounted(() => {
     productService.getProductsSmall().then((data) => (dataviewValue.value = data));

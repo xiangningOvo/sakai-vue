@@ -60,11 +60,6 @@ const router = createRouter({
                 },
 
                 {
-                    path: '/uikit/overlay',
-                    name: 'overlay',
-                    component: () => import('@/views/uikit/Overlay.vue')
-                },
-                {
                     path: '/uikit/media',
                     name: 'media',
                     component: () => import('@/views/uikit/Media.vue')
